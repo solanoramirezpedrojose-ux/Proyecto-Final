@@ -1,5 +1,3 @@
-from idlelib.pyshell import use_subprocess
-
 from app.entity.usuario import UsuarioORM
 from app.repository.usuario_repository import UsuarioRepository
 
