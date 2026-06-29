@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Avisos | Avisos Ciudadanos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Avisos Ciudadanos</h1>
+    <nav>
+        <a href="users.html">Usuarios</a>
+        <a href="notices.html">Avisos</a>
+        <a href="followups.html">Seguimientos</a>
+        <a href="reports.html">Reportes</a>
+        <a href="../index.html" onclick="logout()">Salir</a>
+    </nav>
+</header>
+
+<main>
+    <section class="card">
+        <h2>Gestión de Avisos</h2>
+
+        <form id="noticeForm" class="form-grid">
+            <div>
+                <label>Código</label>
+                <input type="text" id="codigoAviso" required>
+            </div>
+
+            <div>
+                <label>Usuario</label>
+                <select id="cedulaUsuarioAviso" required>
+                    <option value="">Seleccione un usuario</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Tipo de daño</label>
+                <select id="tipoDano" required>
+                    <option value="">Seleccione un tipo</option>
+                    <option value="Hueco en carretera">Hueco en carretera</option>
+                    <option value="Alumbrado publico">Alumbrado público</option>
+                    <option value="Basura acumulada">Basura acumulada</option>
+                    <option value="Fuga de agua">Fuga de agua</option>
+                    <option value="Senalizacion danada">Señalización dañada</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Ubicación</label>
+                <input type="text" id="ubicacion" required>
+            </div>
+
+            <div>
+                <label>Fecha</label>
+                <input type="date" id="fechaAviso" required>
+            </div>
+
+            <div>
+                <label>Estado</label>
+                <select id="estadoAviso" required>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="En proceso">En proceso</option>
+                    <option value="Resuelto">Resuelto</option>
+                </select>
+            </div>
+
+            <div class="full">
+                <label>Descripción</label>
+                <textarea id="descripcion" required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Guardar</button>
+                <button type="button" class="secondary" onclick="clearNoticeForm()">Limpiar</button>
+            </div>
+        </form>
+
+        <div id="messageBox" class="message hidden"></div>
+    </section>
+
+    <section class="card">
+        <h2>Buscar Aviso</h2>
+
+        <div class="search-bar">
+            <input type="text" id="searchCodigoAviso" placeholder="Digite el código del aviso">
+            <button onclick="searchNotice()">Buscar</button>
+            <button class="secondary" onclick="loadNotices()">Ver todos</button>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Lista de Avisos</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Código</th>
+                <th>Usuario</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Ubicación</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="noticesTable"></tbody>
+        </table>
+    </section>
+</main>
+
+<script src="../js/app.js"></script>
+</body>
+</html>

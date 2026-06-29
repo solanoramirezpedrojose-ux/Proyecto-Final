@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seguimientos | Avisos Ciudadanos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Avisos Ciudadanos</h1>
+    <nav>
+        <a href="users.html">Usuarios</a>
+        <a href="notices.html">Avisos</a>
+        <a href="followups.html">Seguimientos</a>
+        <a href="reports.html">Reportes</a>
+        <a href="../index.html" onclick="logout()">Salir</a>
+    </nav>
+</header>
+
+<main>
+    <section class="card">
+        <h2>Gestión de Seguimientos</h2>
+
+        <form id="followUpForm" class="form-grid">
+            <div>
+                <label>Código de seguimiento</label>
+                <input type="text" id="codigoSeguimiento" required>
+            </div>
+
+            <div>
+                <label>Aviso</label>
+                <select id="codigoAvisoSeguimiento" required>
+                    <option value="">Seleccione un aviso</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Estado</label>
+                <select id="estadoSeguimiento" required>
+                    <option value="">Seleccione un estado</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="En proceso">En proceso</option>
+                    <option value="Resuelto">Resuelto</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Fecha de actualización</label>
+                <input type="date" id="fechaActualizacion" required>
+            </div>
+
+            <div>
+                <label>Responsable</label>
+                <input type="text" id="responsable" required>
+            </div>
+
+            <div class="full">
+                <label>Observación</label>
+                <textarea id="observacion" required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Guardar</button>
+                <button type="button" class="secondary" onclick="clearFollowUpForm()">Limpiar</button>
+            </div>
+        </form>
+
+        <div id="messageBox" class="message hidden"></div>
+    </section>
+
+    <section class="card">
+        <h2>Buscar Seguimiento</h2>
+
+        <div class="search-bar">
+            <input type="text" id="searchCodigoSeguimiento" placeholder="Digite el código">
+            <button onclick="searchFollowUp()">Buscar</button>
+            <button class="secondary" onclick="loadFollowUps()">Ver todos</button>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Lista de Seguimientos</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Código</th>
+                <th>Aviso</th>
+                <th>Estado</th>
+                <th>Observación</th>
+                <th>Fecha</th>
+                <th>Responsable</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="followUpsTable"></tbody>
+        </table>
+    </section>
+</main>
+
+<script src="../js/app.js"></script>
+</body>
+</html>
