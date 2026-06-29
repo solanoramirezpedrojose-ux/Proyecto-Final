@@ -65,8 +65,11 @@ class UsuarioService:
         return usuario_actualizado
 
     def eliminar_usuario(self, cedula):
-        usuario = self.repo.delete(cedula)
+        usuario_eliminado = self.repo.delete(cedula)
 
-        if not usuario:
+        if not usuario_eliminado:
             raise ValueError("No existe usuario con esa cedula")
-        return usuario
+
+        return {
+            "message": "Usuario eliminado correctamente"
+        }

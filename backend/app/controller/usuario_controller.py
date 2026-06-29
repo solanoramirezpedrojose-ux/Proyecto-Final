@@ -42,7 +42,7 @@ def update_user(cedula: str, usuario: UsuarioSchema):
     except ValueError as error:
         raise HTTPException(status_code=404, detail=str(error))
 
-@router.delete("/delete/{cedula}", response_model=UsuarioResponseSchema)
+@router.delete("/delete/{cedula}")
 def delete_user(cedula: str):
     try:
         return service.eliminar_usuario(cedula)

@@ -31,9 +31,12 @@ class UsuarioRepository:
             self.db.commit()
         return usuario
 
-    def delete(self, cedula:str):
+    def delete(self, cedula: str):
         usuario = self.get_by_cedula(cedula)
 
         if usuario:
             self.db.delete(usuario)
             self.db.commit()
+            return True
+
+        return False
