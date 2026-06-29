@@ -1,9 +1,11 @@
 from app.entity.usuario import UsuarioORM
 from app.repository.usuario_repository import UsuarioRepository
+from app.repository.aviso_repository import AvisoRepository
 
 class UsuarioService:
     def __init__(self):
         self.repo = UsuarioRepository()
+        self.aviso_repo = AvisoRepository()
 
     def registrar_usuario(self, cedula, nombre, correo, contrasena, rol):
         if not cedula.strip():
@@ -12,6 +14,8 @@ class UsuarioService:
             raise ValueError("El nombre no puede estar vacio")
         if not correo.strip():
             raise ValueError("El correo no puede estar vacio")
+        if "@" not in correo or "." not in correo:
+            raise ValueError("El correo no tiene un formato valido")
         if not contrasena.strip():
             raise ValueError("La contrasena no puede estar vacia")
         if not rol.strip():
@@ -51,6 +55,19 @@ class UsuarioService:
         return self.repo.get_all()
 
     def actualizar_usuario(self, cedula, nombre, correo, contrasena, rol):
+        if not cedula.strip():
+            raise ValueError("La cedula no puede estar vacia")
+        if not nombre.strip():
+            raise ValueError("El nombre no puede estar vacio")
+        if not correo.strip():
+            raise ValueError("El correo no puede estar vacio")
+        if "@" not in correo or "." not in correo:
+            raise ValueError("El correo no tiene un formato valido")
+        if not contrasena.strip():
+            raise ValueError("La contrasena no puede estar vacia")
+        if not rol.strip():
+            raise ValueError("El rol no puede estar vacio")
+
         usuario = UsuarioORM(
             cedula,
             nombre,
@@ -59,17 +76,19 @@ class UsuarioService:
             rol
         )
         usuario_actualizado = self.repo.update(usuario)
-
         if not usuario_actualizado:
             raise ValueError("No existe usuario con esa cedula")
         return usuario_actualizado
 
     def eliminar_usuario(self, cedula):
+        avisos_usuario = self.aviso_repo.get_by_usuario(cedula)
+
+        if len(avisos_usuario) > 0:
+            raise ValueError("No se puede eliminar el usuario porque tiene avisos registrados")
         usuario_eliminado = self.repo.delete(cedula)
 
         if not usuario_eliminado:
             raise ValueError("No existe usuario con esa cedula")
-
         return {
             "message": "Usuario eliminado correctamente"
         }

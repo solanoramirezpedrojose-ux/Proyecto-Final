@@ -15,3 +15,23 @@ def init_db():
     from app.entity.seguimiento import SeguimientoORM
 
     Base.metadata.create_all(bind=engine)
+
+    db = SessionLocal()
+
+    try:
+        admin = db.query(UsuarioORM).filter_by(correo="admin@gmail.com").first()
+
+        if not admin:
+            admin = UsuarioORM(
+                "000000000",
+                "Administrador del Sistema",
+                "admin@gmail.com",
+                "admin123",
+                "administrador"
+            )
+
+            db.add(admin)
+            db.commit()
+
+    finally:
+        db.close()

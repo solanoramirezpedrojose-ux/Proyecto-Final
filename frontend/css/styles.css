@@ -14,10 +14,10 @@ body {
 
 .login-page {
     min-height: 100vh;
+    background: linear-gradient(135deg, #e0f2f1, #dbeafe);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #0f766e, #1e3a8a);
     padding: 20px;
 }
 

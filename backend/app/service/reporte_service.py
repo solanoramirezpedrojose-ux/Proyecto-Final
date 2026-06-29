@@ -12,9 +12,17 @@ class ReporteService:
         avisos = self.aviso_repo.get_all()
 
         total = len(avisos)
-        pendientes = len(self.aviso_repo.get_by_estado("Pendiente"))
-        en_proceso = len(self.aviso_repo.get_by_estado("En proceso"))
-        resueltos = len(self.aviso_repo.get_by_estado("Resuelto"))
+        pendientes = 0
+        en_proceso = 0
+        resueltos = 0
+
+        for aviso in avisos:
+            if aviso.estado == "Pendiente":
+                pendientes += 1
+            elif aviso.estado == "En proceso":
+                en_proceso += 1
+            elif aviso.estado == "Resuelto":
+                resueltos += 1
 
         return {
             "total": total,
@@ -28,19 +36,14 @@ class ReporteService:
         conteo = {}
 
         for aviso in avisos:
-            if aviso.tipo_dano not in conteo:
-                conteo[aviso.tipo_dano] = 0
-            conteo[aviso.tipo_dano] += 1
+            tipo = aviso.tipo_dano
+
+            if tipo not in conteo:
+                conteo[tipo] = 0
+
+            conteo[tipo] += 1
+
         return conteo
-
-    def obtener_avisos_pendientes(self):
-        return self.aviso_repo.get_by_estado("Pendiente")
-
-    def obtener_avisos_en_proceso(self):
-        return self.aviso_repo.get_by_estado("En proceso")
-
-    def obtener_avisos_resueltos(self):
-        return self.aviso_repo.get_by_estado("Resuelto")
 
     def obtener_reporte_seguimientos_por_aviso(self, codigo_aviso):
         seguimientos = self.seguimiento_repo.get_by_aviso(codigo_aviso)

@@ -18,8 +18,10 @@ class SeguimientoRepository:
     def get_all(self):
         return self.db.query(SeguimientoORM).all()
 
-    def get_by_aviso(self, codigo_aviso:str):
-        return self.db.query(SeguimientoORM).filter_by(codigo_aviso = codigo_aviso).all()
+    def get_by_aviso(self, codigo_aviso: str):
+        return self.db.query(SeguimientoORM).filter_by(
+            codigo_aviso=codigo_aviso
+        ).all()
 
     def update(self, seguimiento_new: SeguimientoORM):
         seguimiento = self.get_by_codigo(seguimiento_new.codigo_seguimiento)
