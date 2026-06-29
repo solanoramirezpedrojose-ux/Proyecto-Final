@@ -67,14 +67,27 @@ class UsuarioService:
             raise ValueError("La contrasena no puede estar vacia")
         if not rol.strip():
             raise ValueError("El rol no puede estar vacio")
+        roles_validos = ["administrador", "ciudadano"]
+        if rol.lower() not in roles_validos:
+            raise ValueError("El rol debe ser administrador o ciudadano")
+
+        usuario_actual = self.repo.get_by_cedula(cedula)
+
+        if not usuario_actual:
+            raise ValueError("No existe usuario con esa cedula")
+        usuario_con_correo = self.repo.get_by_correo(correo)
+
+        if usuario_con_correo and usuario_con_correo.cedula != cedula:
+            raise ValueError("Ya existe otro usuario con ese correo")
 
         usuario = UsuarioORM(
             cedula,
             nombre,
             correo,
             contrasena,
-            rol
+            rol.lower()
         )
+
         usuario_actualizado = self.repo.update(usuario)
         if not usuario_actualizado:
             raise ValueError("No existe usuario con esa cedula")

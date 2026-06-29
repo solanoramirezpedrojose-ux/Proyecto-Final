@@ -6,7 +6,7 @@ router = APIRouter(prefix="/api/notices", tags=["Notices"])
 service = AvisoService()
 
 @router.post("/add", response_model=AvisoSchema)
-def register_notice(aviso: AvisoSchema):
+def add_notice(aviso: AvisoSchema):
     try:
         return service.registrar_aviso(
             aviso.codigo,
@@ -14,7 +14,8 @@ def register_notice(aviso: AvisoSchema):
             aviso.tipo_dano,
             aviso.descripcion,
             aviso.ubicacion,
-            aviso.fecha
+            aviso.fecha,
+            aviso.estado
         )
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error))
@@ -57,7 +58,7 @@ def update_notice(codigo: str, aviso: AvisoSchema):
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error))
 
-@router.delete("/delete/{codigo}", response_model=AvisoSchema)
+@router.delete("/delete/{codigo}")
 def delete_notice(codigo: str):
     try:
         return service.eliminar_aviso(codigo)

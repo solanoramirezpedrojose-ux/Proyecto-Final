@@ -5,7 +5,6 @@ class AvisoSchema(BaseModel):
     cedula_usuario:str
     tipo_dano:str
     descripcion:str
-    descripcion:str
     ubicacion:str
     fecha:str
     estado:str = "Pendiente"

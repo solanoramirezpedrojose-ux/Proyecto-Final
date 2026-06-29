@@ -2,6 +2,20 @@ var API_URL = "http://127.0.0.1:8000/api";
 
 var messageBox = document.getElementById("messageBox");
 
+function verificarLogin() {
+    var paginaActual = window.location.pathname;
+
+    if (!paginaActual.includes("index.html")) {
+        var token = localStorage.getItem("token");
+
+        if (!token) {
+            window.location.href = "../index.html";
+        }
+    }
+}
+
+verificarLogin();
+
 function showMessage(text, type = "success") {
     messageBox = document.getElementById("messageBox");
 

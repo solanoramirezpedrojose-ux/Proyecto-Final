@@ -39,8 +39,8 @@ class AvisoRepository:
             self.db.commit()
         return aviso
 
-    def update_estado(self, codigo:str, estado:str):
-        aviso = self.get_by_estado(codigo)
+    def update_estado(self, codigo: str, estado: str):
+        aviso = self.get_by_codigo(codigo)
 
         if aviso:
             aviso.estado = estado

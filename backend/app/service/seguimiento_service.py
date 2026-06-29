@@ -88,7 +88,8 @@ class SeguimientoService:
 
     def eliminar_seguimiento(self, codigo_seguimiento):
         seguimiento_eliminado = self.seguimiento_repo.delete(codigo_seguimiento)
-
         if not seguimiento_eliminado:
             raise ValueError("No existe un seguimiento con ese codigo")
-        return seguimiento_eliminado
+        return {
+            "message": "Seguimiento eliminado correctamente"
+        }

@@ -51,7 +51,7 @@ def update_follow_up(codigo_seguimiento: str, seguimiento: SeguimientoSchema):
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error))
 
-@router.delete("/delete/{codigo_seguimiento}", response_model=SeguimientoSchema)
+@router.delete("/delete/{codigo_seguimiento}")
 def delete_follow_up(codigo_seguimiento: str):
     try:
         return service.eliminar_seguimiento(codigo_seguimiento)
